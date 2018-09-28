@@ -35,6 +35,11 @@ public class Student extends ResourceSupport {
 		this.lastName = lastName;
 		this.email = mail;
 	}
+	
+	public Student(Long idt) {
+		super();
+		this.idt = idt;
+	}
 
 	public Long getIdt() {
 		return idt;
@@ -68,4 +73,40 @@ public class Student extends ResourceSupport {
 		this.email = email;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((idt == null) ? 0 : idt.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj) || getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (email == null && other.email != null) {
+			return false;
+		} 
+		if (firstName == null && other.firstName != null) {
+			return false;
+		} 
+		if (idt == null && other.idt != null) {
+			return false;
+		} 
+		if (lastName == null && other.lastName != null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!other.lastName.equals(lastName)) {
+			return false;}
+		return true;
+	}
+
+	
 }

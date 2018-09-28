@@ -11,7 +11,7 @@ public class RestControllerExceptionHandler {
 	
 	@ExceptionHandler(Throwable.class)
 	public Response<Void> handleThrowable (Throwable ex) {
-    	return new Response<Void>(Boolean.FALSE, "An unexpected internal server error occured");
+    	return new Response<>(Boolean.FALSE, "An unexpected internal server error occured");
     }
 	
 }

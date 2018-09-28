@@ -36,7 +36,7 @@ public class PersistenceConfig {
 	/**
 	 * Defines H2 or Oracle Mode
 	 */
-	public static Boolean H2_MODE = Boolean.TRUE;
+	public static final Boolean H2MODE = Boolean.TRUE;
 
     @Autowired
     private Environment environment;
@@ -51,11 +51,12 @@ public class PersistenceConfig {
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 
-		if(H2_MODE) {
+		if(H2MODE) {
 			vendorAdapter.setDatabase(Database.H2);
 			vendorAdapter.setGenerateDdl(true);
-		} else
+		} else {
 			entityManager.setJpaProperties(additionalProperties());
+		}
 
 		entityManager.setJpaVendorAdapter(vendorAdapter);
 		return entityManager;
@@ -63,7 +64,7 @@ public class PersistenceConfig {
 	
 	@Bean
 	public DataSource dataSource(){
-			return H2_MODE ? this.dataSourceH2() : this.dataSourceOracle();
+			return H2MODE ? this.dataSourceH2() : this.dataSourceOracle();
 	}
 	
     private Properties additionalProperties() {

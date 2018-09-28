@@ -26,6 +26,7 @@ import com.jaxon.prueba.controller.response.Response;
 import com.jaxon.prueba.model.Student;
 import com.jaxon.prueba.model.validators.StudentValidator;
 import com.jaxon.prueba.service.IStudentService;
+import com.jaxon.prueba.service.exceptions.BDException;
 
 @RestController
 @RequestMapping("/api/students")
@@ -61,7 +62,7 @@ public class StudentController {
 	}
 
 	@PutMapping
-	public Response<Void> createStudent(@RequestBody @Validated Student student, BindingResult result) throws Exception {
+	public Response<Void> createStudent(@RequestBody @Validated Student student, BindingResult result) throws BDException {
 
 		if(result.hasErrors()) {
 			
@@ -78,7 +79,7 @@ public class StudentController {
 	}
 	
 	@DeleteMapping("/{idt}")
-	public Response<Void> deleteStudent(@PathVariable Long idt) throws Exception {
+	public Response<Void> deleteStudent(@PathVariable Long idt) throws BDException {
 			studentService.delete(idt);
 			return new Response<>(Boolean.TRUE,"Student deleted");
 	}

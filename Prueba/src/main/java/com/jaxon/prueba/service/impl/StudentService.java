@@ -9,6 +9,8 @@ import java.util.stream.LongStream;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Example;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.jaxon.prueba.model.Student;
 import com.jaxon.prueba.repository.IStudentRepository;
 import com.jaxon.prueba.service.IStudentService;
+import com.jaxon.prueba.service.exceptions.BDException;
 import com.jaxon.prueba.service.exceptions.ElementNotFoundException;
 
 @Service
@@ -28,7 +31,9 @@ public class StudentService implements IStudentService{
 	private List<String> lastNames = Arrays.asList("Morgan", "Smith", "Johnson", "Jones", "Brown", "Taylor", "Williams", "Miller", "Lam", "Anderson", "Wilson");
 	private List<String> domains = Arrays.asList("test.test", "test.com", "trying.dot", "replaytest.tk", "mydomain.wiki", "domain.test", "mytestmail.test");
 
-	public static Boolean persistedData = Boolean.FALSE;
+	private Boolean persistedData = Boolean.FALSE;
+	
+	private static final Logger LOG = LoggerFactory.getLogger("prueba");
 	
 	@Autowired
 	private IStudentRepository studentRepository;
@@ -47,12 +52,12 @@ public class StudentService implements IStudentService{
 	}
 
 	@Override
-	public Student create(Student student) throws Exception {
+	public Student create(Student student) throws BDException {
 		return studentRepository.save(student);
 	}
 	
 	@Override
-	public Student modifiy(Student student) throws Exception {
+	public Student modifiy(Student student) throws ElementNotFoundException {
 		
 		if(studentRepository.exists(Example.of(student)))
 			return studentRepository.save(student);
@@ -62,7 +67,7 @@ public class StudentService implements IStudentService{
 	}
 	
 	@Override
-	public void delete(Long idt) throws Exception {
+	public void delete(Long idt) throws BDException {
 		studentRepository.delete(idt);
 	}
 	
@@ -72,10 +77,9 @@ public class StudentService implements IStudentService{
 		if (!persistedData) {
 			List<Student> students = this.generateAleatoryStudents(Boolean.FALSE);
 			studentRepository.save(students);
-			persistedData = Boolean.TRUE;System.out.println("Data persisted");
-		} else {
-			System.out.println("Data already persisted");
-		}
+			persistedData = Boolean.TRUE;
+		} 
+		LOG.info("Data already persisted");
 		
 	}
 
