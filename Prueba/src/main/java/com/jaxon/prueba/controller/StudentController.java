@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jaxon.prueba.controller.response.Response;
 import com.jaxon.prueba.model.Student;
+import com.jaxon.prueba.model.dto.StudentDTO;
 import com.jaxon.prueba.model.validators.StudentValidator;
 import com.jaxon.prueba.service.IStudentService;
 import com.jaxon.prueba.service.exceptions.BDException;
@@ -62,7 +63,7 @@ public class StudentController {
 	}
 
 	@PutMapping
-	public Response<Void> createStudent(@RequestBody @Validated Student student, BindingResult result) throws BDException {
+	public Response<Void> createStudent(@RequestBody @Validated StudentDTO s, BindingResult result) throws BDException {
 
 		if(result.hasErrors()) {
 			
@@ -73,6 +74,10 @@ public class StudentController {
 			
 			return new Response<>(Boolean.FALSE,StringUtils.capitalize(errors).concat("."));
 		}
+		Student student=new Student();
+		student.setFirstName(s.getFirstName());
+		student.setLastName(s.getLastName());
+		student.setEmail(s.getEmail());
 		
 		studentService.create(student);
 		return new Response<>(Boolean.TRUE,"Student created");

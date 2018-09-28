@@ -28,14 +28,6 @@ public class Student extends ResourceSupport {
 		
 	}
 	
-	public Student(Long idt, String firstName, String lastName, String mail) {
-		super();
-		this.idt = idt;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = mail;
-	}
-	
 	public Student(Long idt) {
 		super();
 		this.idt = idt;
