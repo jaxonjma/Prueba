@@ -12,11 +12,11 @@ public interface IStudentService {
 	
 	void saveStudentsInDataBase();
 
-	List<Student> generateAleatoryStudents(boolean generateId);
+	List<Student> generateAleatoryStudents();
 	
 	Student create(Student student) throws BDException;
 
-	Student modifiy(Student student) throws ElementNotFoundException;
+	Student modify(Student student) throws ElementNotFoundException;
 	
 	void delete(Long idt) throws BDException;
 

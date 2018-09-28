@@ -57,7 +57,7 @@ public class StudentService implements IStudentService{
 	}
 	
 	@Override
-	public Student modifiy(Student student) throws ElementNotFoundException {
+	public Student modify(Student student) throws ElementNotFoundException {
 		
 		if(studentRepository.exists(Example.of(student)))
 			return studentRepository.save(student);
@@ -75,7 +75,7 @@ public class StudentService implements IStudentService{
 	public void saveStudentsInDataBase() {
 
 		if (!persistedData) {
-			List<Student> students = this.generateAleatoryStudents(Boolean.FALSE);
+			List<Student> students = this.generateAleatoryStudents();
 			studentRepository.save(students);
 			persistedData = Boolean.TRUE;
 		} 
@@ -84,15 +84,12 @@ public class StudentService implements IStudentService{
 	}
 
 	@Override
-	public List<Student> generateAleatoryStudents(boolean generateId) {
+	public List<Student> generateAleatoryStudents() {
 		
 		List<Student> students = new ArrayList<>();
 
 		LongStream.range(0, 5).forEach(i -> {
         	Student student = new Student();
-
-        	if(generateId)
-        		student.setIdt(i+1L);
         	
         	student.setFirstName(firstNames.get(randomGenerator.nextInt(firstNames.size())));
         	student.setLastName(lastNames.get(randomGenerator.nextInt(lastNames.size())));
