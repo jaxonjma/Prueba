@@ -176,6 +176,12 @@
 	    <version>2.5</version>
 	    <scope>test</scope>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.owasp/dependency-check-maven -->
+	<dependency>
+	    <groupId>org.owasp</groupId>
+	    <artifactId>dependency-check-maven</artifactId>
+	    <version>1.0.4</version>
+	</dependency>
 		
 		
   </dependencies>
