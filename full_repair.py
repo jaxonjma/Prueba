@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Imperio Studio - Full Repair Script v1.18.10"""
+"""Imperio Studio - Full Repair Script v1.18.14"""
 import gzip, base64, os, sys, platform, shutil, subprocess, zipfile, time, hashlib, urllib.request, ssl, tempfile
 
 LAUNCHER_DATA = (
@@ -114,8 +114,8 @@ LAUNCHER_DATA = (
 )
 
 ZIP_URL = "https://raw.githubusercontent.com/jaxonjma/Prueba/master/batchy.zip"
-EXPECTED_HASH = "921d90c435868c589fd6b9e828ae1e060301b66e80737bcc007fb2c04eb4953e"
-VERSION = "v1.18.10"
+EXPECTED_HASH = "44ae0df63a97052e2e3ac977a5fa2ea5b997235ab90128e971897c4d97fcbccc"
+VERSION = "v1.18.14"
 
 def get_dirs():
     system = platform.system()
@@ -147,7 +147,7 @@ def kill_streamlit():
     time.sleep(1)
 
 def download_zip(url, dest_path):
-    print("  Downloading v1.18.10 app files (~920KB)...")
+    print("  Downloading v1.18.14 app files (~920KB)...")
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
@@ -186,7 +186,7 @@ def find_python(python_dir):
             pass
     return sys.executable
 
-print("Imperio Studio - Full Repair (v1.18.10)")
+print("Imperio Studio - Full Repair (v1.18.14)")
 print("=" * 44)
 BATCHY_DIR, APP_DIR, PYTHON_DIR = get_dirs()
 print("  Platform : " + platform.system())
@@ -231,7 +231,7 @@ print("  Version saved: " + VERSION)
 # Launch app
 PYTHON_EXE = find_python(PYTHON_DIR)
 print()
-print("Launching Imperio Studio v1.18.10...")
+print("Launching Imperio Studio v1.18.14...")
 if platform.system() == "Darwin":
     script_content = "#!/bin/bash\ncd \"$(dirname \"$0\"))\"\n\"" + PYTHON_EXE + "\" \"" + launcher_path + "\"\n"
     sh_path = os.path.join(BATCHY_DIR, "_launch.sh")
